@@ -4,10 +4,11 @@ CREATE DATABASE buybest;
 USE buybest;
 
 CREATE TABLE web_events (
-	id integer,
+	id integer NOT NULL,
 	account_id integer,
 	occurred_at timestamp,
-	channel varchar(50)
+		channel varchar(50),
+		PRIMARY KEY (id)
 );
 INSERT INTO web_events VALUES (1,1001,'2015-10-06 17:13:58','direct');
 INSERT INTO web_events VALUES (2,1001,'2015-11-05 03:08:26','direct');
@@ -314,7 +315,6 @@ INSERT INTO web_events VALUES (9070,4491,'2016-10-04 23:42:41','twitter');
 INSERT INTO web_events VALUES (9071,4491,'2016-11-06 07:23:45','organic');
 INSERT INTO web_events VALUES (9072,4491,'2016-12-18 03:21:31','organic');
 INSERT INTO web_events VALUES (9073,4501,'2016-05-30 00:46:53','organic');
-INSERT INTO web_events VALUES (4939,1451,'2014-10-26 19:12:27','organic');
 INSERT INTO web_events VALUES (4940,1451,'2014-11-25 17:05:10','adwords');
 INSERT INTO web_events VALUES (4941,1451,'2014-12-19 17:09:37','adwords');
 INSERT INTO web_events VALUES (4942,1451,'2015-01-30 19:44:05','facebook');
@@ -503,9 +503,10 @@ INSERT INTO web_events VALUES (5130,1541,'2016-01-13 22:39:57','direct');
 INSERT INTO web_events VALUES (5131,1541,'2016-02-17 21:34:52','organic');
 
 CREATE TABLE sales_reps (
-	id integer,
+	id integer NOT NULL,
 	name varchar(50),
-	region_id integer
+	region_id integer,
+    PRIMARY KEY (id)
 );
 INSERT INTO sales_reps VALUES (321500,'Samuel Racine',1);
 INSERT INTO sales_reps VALUES (321510,'Eugena Esser',1);
@@ -559,8 +560,9 @@ INSERT INTO sales_reps VALUES (321980,'Micha Woodford',4);
 INSERT INTO sales_reps VALUES (321990,'Dawna Agnew',4);
 
 CREATE TABLE region (
-	id integer,
-	name varchar(50)
+	id integer NOT NULL,
+	name varchar(50),
+    PRIMARY KEY (id)
 );
 INSERT INTO region VALUES (1,'Northeast');
 INSERT INTO region VALUES (2,'Midwest');
@@ -568,7 +570,7 @@ INSERT INTO region VALUES (3,'Southeast');
 INSERT INTO region VALUES (4,'West');
 
 CREATE TABLE orders (
-	id integer,
+	id integer NOT NULL,
 	account_id integer,
 	occurred_at timestamp,
 	standard_qty integer,
@@ -578,7 +580,8 @@ CREATE TABLE orders (
 	standard_amt_usd numeric(10,2),
 	gloss_amt_usd numeric(10,2),
 	poster_amt_usd numeric(10,2),
-	total_amt_usd numeric(10,2)
+	total_amt_usd numeric(10,2),
+    PRIMARY KEY (id)
 );
 INSERT INTO orders VALUES (1,1001,'2015-10-06 17:31:14',123,22,24,169,613.77,164.78,194.88,973.43);
 INSERT INTO orders VALUES (2,1001,'2015-11-05 03:34:33',190,41,57,288,948.1,307.09,462.84,1718.03);
@@ -1016,7 +1019,6 @@ INSERT INTO orders VALUES (2235,2671,'2016-08-27 02:53:56',98,0,27,125,489.02,0,
 INSERT INTO orders VALUES (2236,2671,'2016-09-25 22:48:57',106,23,35,164,528.94,172.27,284.2,985.41);
 INSERT INTO orders VALUES (2237,2671,'2016-10-25 05:49:09',63,85,45,193,314.37,636.65,365.4,1316.42);
 INSERT INTO orders VALUES (2238,2671,'2016-11-23 03:55:29',90,17,34,141,449.1,127.33,276.08,852.51);
-
 INSERT INTO orders VALUES (2243,2681,'2015-06-24 19:45:49',274,24,21,319,1367.26,179.76,170.52,1717.54);
 INSERT INTO orders VALUES (2244,2681,'2015-07-24 04:38:29',552,31,22,605,2754.48,232.19,178.64,3165.31);
 INSERT INTO orders VALUES (2245,2681,'2015-08-22 17:13:16',276,3032,3,3311,1377.24,22709.68,24.36,24111.28);
@@ -1078,13 +1080,14 @@ INSERT INTO orders VALUES (2300,2711,'2016-10-13 18:12:24',482,15,6,503,2405.18,
 INSERT INTO orders VALUES (2301,2711,'2016-11-12 03:04:51',518,15,8,541,2584.82,112.35,64.96,2762.13);
 
 CREATE TABLE accounts (
-	id integer,
+	id integer NOT NULL,
 	name varchar(50),
 	website varchar(100),
 	lat numeric(11,8),
 	lon numeric(11,8),
 	primary_poc varchar(50),
-	sales_rep_id integer
+	sales_rep_id integer,
+    PRIMARY KEY (id)
 );
 INSERT INTO accounts VALUES (1001,'Walmart','www.walmart.com',40.23849561,-75.10329704,'Tamara Tuma',321500);
 INSERT INTO accounts VALUES (1011,'Exxon Mobil','www.exxonmobil.com',41.1691563,-73.84937379,'Sung Shields',321510);
