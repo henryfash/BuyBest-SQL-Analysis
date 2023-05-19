@@ -161,7 +161,16 @@ FROM
     orders
 GROUP BY 1;
 
-/* 11. Minimum and  Maximum daily sales */
+/* 11. Total Yearly sales */
+SELECT 
+    DATE_FORMAT(occurred_at, '%Y') year_of_sales,
+    SUM(total_amt_usd) total_sales
+FROM
+    orders
+GROUP BY 1
+ORDER BY 1;
+
+/* 12. Minimum and  Maximum daily sales */
 SELECT 
     MIN(total_sales) lowest_daily_sales, MAX(total_sales) highest_daily_sales
 FROM
@@ -171,7 +180,7 @@ FROM
     FROM
         orders) sub1;
 
-/* 12. what is the first and last day sales*/
+/* 13. what is the first and last day sales*/
 WITH sub AS (SELECT 
     DATE_FORMAT(occurred_at, '%Y-%m-%d') day_of_sales,
     (total_amt_usd) total_sales
@@ -182,5 +191,43 @@ SELECT
 FROM
     sub;
     
-/* 13. which channel brought in the most revenue */
-select *
+/* 14. which channel brought in the most account */
+SELECT 
+    channel, COUNT(DISTINCT (account_id)) AS number_of_accounts
+FROM
+    web_events
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/* 15. Total Revenue by Region: Calculate the total revenue for each region */
+SELECT 
+    r.name AS region_name, SUM(o.total_amt_usd) total_revenue
+FROM
+    accounts a
+        JOIN
+    orders o ON o.account_id = a.id
+        JOIN
+    sales_reps s ON a.sales_rep_id = s.id
+        JOIN
+    region r ON s.region_id = r.id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/* 16. Total revenue by account */
+SELECT 
+    account_id, SUM(total_amt_usd) total_revenue
+FROM
+    orders
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/* 17. Top 5 companies by total sales amount*/
+SELECT 
+    a.name company, SUM(o.total_amt_usd) total_revenue
+FROM
+    accounts a
+        JOIN
+    orders o ON o.account_id = a.id
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
