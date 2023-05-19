@@ -175,19 +175,16 @@ SELECT
     MIN(total_sales) lowest_daily_sales, MAX(total_sales) highest_daily_sales
 FROM
     (SELECT 
-        DATE_FORMAT(occurred_at, '%Y-%m-%d') day_of_sales,
-            (total_amt_usd) total_sales
+        DATE_FORMAT(occurred_at, '%Y-%m-%d') day_of_sales, (total_amt_usd) total_sales
     FROM
         orders) sub1;
 
 /* 13. what is the first and last day sales*/
 WITH sub AS (SELECT 
-    DATE_FORMAT(occurred_at, '%Y-%m-%d') day_of_sales,
-    (total_amt_usd) total_sales
-FROM
-    orders)
+				DATE_FORMAT(occurred_at, '%Y-%m-%d') day_of_sales, (total_amt_usd) total_sales
+			FROM orders)
 SELECT 
-    MIN(day_of_sales) first_day, total_sales
+	MIN(day_of_sales) first_day, total_sales
 FROM
     sub;
     
