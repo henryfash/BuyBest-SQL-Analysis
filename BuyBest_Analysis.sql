@@ -228,3 +228,23 @@ FROM
 GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 5;
+
+/* 18. create two groups: one group of company names that start 
+with a number and a second group of those company names that start
+ with a letter. What proportion of company names start with a letter? 
+ */
+WITH company_group AS (
+		SELECT name company_name,
+			CASE  WHEN left(name,1) BETWEEN '0' AND '9' THEN 'Number' ELSE 'Letter' END AS group_cname,
+            COUNT(*) AS count
+		FROM 
+        accounts
+        GROUP BY 2)
+SELECT 
+    group_cname,
+    count,
+    round(count/sum(count) OVER(), 2) AS proportion
+FROM
+    company_group;
+
+
